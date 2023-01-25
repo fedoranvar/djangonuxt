@@ -1,7 +1,8 @@
 services:
   web:
     build:
-      context: .docker
+      context: .
+      dockerfile: .docker/Dockerfile
       target: builder
     ports:
       - "8000:8000"
@@ -9,12 +10,34 @@ services:
       - mongodb
     volumes:
       - .:/app
-    # entrypoint: ["python"]
-    # command: ["manage.py", "runserver", "0.0.0.0:8000"]
+    entrypoint: ["python"]
+    command: ["app/manage.py", "runserver", "0.0.0.0:8000"]
 
   mongodb:
     image: mongo
-    # volumes:
-    #   - ./data-db:/data/db
+    volumes:
+      - ./data-db:/data/db
     ports:
       - 27017:27017
+
+  # migration:
+#     build: .
+#     image: app
+#     command: python manage.py migrate
+#     volumes:
+#       - .:/django_mongodb_docker
+#     links:
+#       - mongodb
+#     depends_on:
+#       - make_migrations
+#
+#   make_migrations:
+#     build: .
+#     image: app
+#     command: python manage.py makemigrations
+#     volumes:
+#       - .:/django_mongodb_docker
+#     links:
+#       - mongodb
+#     depends_on:
+#       - mongodb

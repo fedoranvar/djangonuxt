@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class MyfurstConfig(AppConfig):
+class ClaimsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'myfurst'
+    name = 'claims'
