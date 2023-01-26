@@ -78,9 +78,9 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": os.environ.get("NOSQL_ENGINE", "djongo"),
-        "NAME": os.environ.get("NOSQL_NAME", "mongodb"),
+        "NAME": os.environ.get("NOSQL_NAME", "docsapp"),
         "CLIENT": {
-            "host": os.environ.get("NOSQL_HOST", "mongodb"),
+            "host": os.environ.get("NOSQL_HOST", "db"),
         },
         "ENFORCE_SCHEMA": os.environ.get("NOSQL_ENFORCE_SCHEMA", True),
     },
