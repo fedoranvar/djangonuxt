@@ -7,9 +7,11 @@ services:
       context: .
       dockerfile: .docker/frontend.Dockerfile
     ports:
-      - "8001:8080"
+      - "8001:3000"
     volumes:
       - ./frontend:/app
+    # entrypoint: ["npm"]
+    command: ["pnpm", "run", "dev"]
 
   backend:
     build:

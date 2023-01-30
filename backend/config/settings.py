@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-jolskpsydf)8$w0)yxt5n_a2z(8n%jx6^a4s#%h#!00wlesia8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["backend", "localhost"]
 
 
 # Application definition
@@ -38,7 +38,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "claims",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "corsheaders",
+
+    "claim",
+    "user",
 ]
 
 MIDDLEWARE = [
@@ -49,6 +54,9 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # 'django.middleware.security.SecurityMiddleware',
+    # 'django.contrib.sessions.middleware.SessionMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -82,7 +90,7 @@ DATABASES = {
         "CLIENT": {
             "host": os.environ.get("NOSQL_HOST", "db"),
         },
-        "ENFORCE_SCHEMA": os.environ.get("NOSQL_ENFORCE_SCHEMA", True),
+        "ENFORCE_SCHEMA": os.environ.get("NOSQL_ENFORCE_SCHEMA", False),
     },
     # "default": {
     #     "ENGINE": "django.db.backends.sqlite3",
@@ -133,3 +141,20 @@ STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# AUTH_USER_MODEL = 'user.
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+}
+
+CORS_ALLOW_ALL_ORIGINS = True

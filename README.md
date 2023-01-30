@@ -9,4 +9,7 @@ docker-compose exec  backend  sh -c "cd backend;python manage.py migrate"
 docker-compose exec  backend  sh -c "cd backend;python manage.py createsuperuser"
 
 
-dc run frontend bash
+dc run --build frontend bash
+npm create vite@latest
+cd ; npm install
+
