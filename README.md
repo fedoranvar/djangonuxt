@@ -10,6 +10,7 @@ docker-compose exec  backend  sh -c "cd backend;python manage.py createsuperuser
 
 
 dc run --build frontend bash
-npm create vite@latest
+pnpm create vite@latest
+pnpm dlx nuxi init front
 cd ; npm install
 
