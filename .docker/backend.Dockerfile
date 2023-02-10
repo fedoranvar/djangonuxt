@@ -1,4 +1,4 @@
-FROM  python:3.9-alpine AS builder
+FROM  python:3.11.2-alpine AS builder
 EXPOSE 8000
 WORKDIR /app 
 COPY backend/requirements.txt /app

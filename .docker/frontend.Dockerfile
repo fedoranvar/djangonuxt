@@ -1,4 +1,4 @@
-FROM node:19.5.0 as builder
+FROM node:lts-alpine as builder
 
 RUN npm install -g npm@9.4.0
 RUN npm install -g @vue/cli
