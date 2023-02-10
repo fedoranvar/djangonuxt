@@ -1,46 +1,25 @@
-<!-- <script setup lang="ts"> -->
-<!-- import HelloWorld from './components/HelloWorld.vue' -->
-<!-- </script> -->
+<script setup>
+import { RouterLink, RouterView } from 'vue-router';
+
+import { useAuthStore } from '@/stores';
+
+const authStore = useAuthStore();
+</script>
 
 <template>
-  <h1>Users <button @click="fetchUsers">🔄</button></h1>
-  <p v-if="!users">Loading users...</p>
-  <pre>{{ users }}</pre>
+    <div class="app-container bg-light">
+        <nav v-show="authStore.user" class="navbar navbar-expand navbar-dark bg-dark">
+            <div class="navbar-nav">
+                <RouterLink to="/" class="nav-item nav-link">Home</RouterLink>
+                <a @click="authStore.logout()" class="nav-item nav-link">Logout</a>
+            </div>
+        </nav>
+        <div class="container pt-4 pb-4">
+            <RouterView />
+        </div>
+    </div>
 </template>
 
-<script>
-import { $fetch } from "ofetch";
-import { ref, onMounted } from "vue";
-
-export default {
-  setup() {
-    let users = ref(null);
-    let logindata;
-    const login = async () => {
-      logindata = await $fetch("http://localhost:8000/login/", {
-        method: "POST",
-        body: {
-          username: "admin",
-          password: "admin",
-        },
-      });
-
-      console.log(logindata);
-    };
-    const fetchUsers = async () => {
-      users.value = null;
-      users.value = await $fetch("http://localhost:8000/users/", {
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-        },
-        // credentials: "same-origin",
-      });
-      console.log("prive");
-    };
-    onMounted(login);
-
-    return { users, fetchUsers, logindata };
-  },
-};
-</script>
+<style>
+@import '@/assets/base.css';
+</style>
