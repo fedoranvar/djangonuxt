@@ -26,9 +26,7 @@ SECRET_KEY = "django-insecure-jolskpsydf)8$w0)yxt5n_a2z(8n%jx6^a4s#%h#!00wlesia8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "backend", "localhost"
-,"*"]
+ALLOWED_HOSTS = ["backend", "localhost", "*"]
 
 
 # Application definition
@@ -45,8 +43,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "claim",
     "user",
-
-   'rest_framework_simplejwt',
+    "rest_framework_simplejwt",
 ]
 
 MIDDLEWARE = [
@@ -92,6 +89,8 @@ DATABASES = {
         "NAME": os.environ.get("NOSQL_NAME", "docsapp"),
         "CLIENT": {
             "host": os.environ.get("NOSQL_HOST", "db"),
+            'username': "admin",
+            'password': "admin"
         },
         "ENFORCE_SCHEMA": os.environ.get("NOSQL_ENFORCE_SCHEMA", False),
     },

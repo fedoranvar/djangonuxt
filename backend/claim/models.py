@@ -1,6 +1,20 @@
-from djongo import models
+from django import forms
 # from datetime import datetime
 from django.utils.timezone import now as datetime_now
+from djongo import models
+
+
+class Document(models.Model):
+    name = models.CharField(max_length=200)
+
+    class Meta:
+        abstract = True
+
+
+class DocumentForm(forms.ModelForm):
+    class Meta:
+        model = Document
+        fields = ("name",)
 
 
 class Claim(models.Model):
@@ -21,5 +35,6 @@ class Claim(models.Model):
     attachment = models.FileField(upload_to="uploads/", blank=True)
     is_special = models.BooleanField(default=False)
 
-
-# Create your models here.
+    documents = models.ArrayField(
+        model_container=Document, model_form_class=DocumentForm,  null=True, default=list()
+    )

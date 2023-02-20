@@ -53,6 +53,23 @@ services:
     networks:
       app_net:
         ipv4_address: 172.16.100.10
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+
+  mongoexpress:
+    image: mongo-express
+    ports:
+      - 8003:8081
+    depends_on:
+      - db
+    environment:
+      - ME_CONFIG_MONGODB_URL=mongodb://admin:admin@db/
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=admin
+    networks:
+      app_net:
+        ipv4_address: 172.16.100.14
 
   # migration:
 #     build: .
