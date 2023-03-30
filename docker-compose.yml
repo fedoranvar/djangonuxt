@@ -33,7 +33,7 @@ services:
       dockerfile: .docker/backend.Dockerfile
       target: builder # or backend
     ports:
-      - "8000:8000"
+      - "8000:9090"
     depends_on:
       - db
     networks:
@@ -42,7 +42,7 @@ services:
     volumes:
       - ./backend:/app
     entrypoint: ["python"]
-    command: ["manage.py", "runserver", "0.0.0.0:8000"]
+    command: ["app.py"]
 
   db:
     image: mongo

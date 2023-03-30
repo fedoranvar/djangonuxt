@@ -1,11 +1,18 @@
-FROM  python:3.11.2-alpine AS builder
-EXPOSE 8000
-WORKDIR /app 
-COPY backend/requirements.txt /app
-RUN pip3 install -r requirements.txt --no-cache-dir
-RUN pip install httpie
+# syntax=docker/dockerfile:1.4
+FROM --platform=$BUILDPLATFORM python:3.10-alpine AS builder
 
-FROM builder as backend
-COPY . /app 
-ENTRYPOINT ["python"]
-CMD ["manage.py", "runserver", "0.0.0.0:8000"]
+WORKDIR /src
+COPY backend/requirements.txt /src
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip3 install -r requirements.txt
+
+COPY backend .
+
+FROM builder as dev-envs
+
+RUN <<EOF
+apk update
+apk add git
+EOF
+
+
